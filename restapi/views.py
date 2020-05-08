@@ -15,15 +15,6 @@ from rest_framework.authtoken.models import Token
 from rest_framework.pagination import LimitOffsetPagination
 
 
-# class ProductFilter(filters.FilterSet):
-
-#     class Meta:
-#         model = Product
-#         fields = {
-#             'school': ['icontains'],
-#             'created': ['iexact', 'lte', 'gte']
-#         }
-
 class ProductViewPagination(LimitOffsetPagination):
     default_limit = 8
     max_limit = 12
