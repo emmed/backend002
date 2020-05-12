@@ -63,7 +63,7 @@ class Product(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=800, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
-    #image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=100,)
+    image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=250, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
 
     class Meta:

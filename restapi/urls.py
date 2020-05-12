@@ -21,7 +21,7 @@ router.register('location', LocationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-    #path('state/count/:state_id', StateCountViewSet, name='states-count')
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    #path('update/', ProductViewSet.as_view(), name="update")
  ]
 

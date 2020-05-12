@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from  rest_framework import viewsets, status
-from  rest_framework.decorators import api_view
+from rest_framework.decorators import api_view
 from .models import *
 from django.contrib.auth.models import User
 from .serializer import *
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.authentication import TokenAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
-#from django_filters import rest_framework as filters
+from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -18,7 +18,6 @@ from rest_framework.pagination import LimitOffsetPagination
 class ProductViewPagination(LimitOffsetPagination):
     default_limit = 8
     max_limit = 12
-
 
 
 class ProductViewSet(viewsets.ModelViewSet):
@@ -39,6 +38,21 @@ class ProductViewSet(viewsets.ModelViewSet):
     # def create(self,request,*args,**kwargs):
     #     response = {'message':'product cannot be created like this'}
     #     return Response(response, status = status.HTTP_400_BAD_REQUEST)
+    
+#**********************
+
+    # @api_view(['PUT', ])
+    # def put(request):
+    #     if request.method == 'PUT':
+    #         product = Product.Objects.all()
+    #         serializer = ProductSerializer(product, data=request.data)
+    #         data = {}
+    #         if serializer.is_valid():
+    #             serializer.save()
+    #             data["success"] = "update successful"
+    #             return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 class ProductOrderViewSet(viewsets.ModelViewSet):
     queryset = ProductOrder.objects.all()
@@ -99,7 +113,10 @@ class UserViewSet(viewsets.ModelViewSet):
   queryset = User.objects.all()
   serializer_class = UserSerializer
   authentication_classes = (TokenAuthentication,)
-  permission_classes = (AllowAny, )
+  permission_classes = (AllowAny,)
+  filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+  search_fields = ['=id', '=username']
+
 
 # @api_view(['POST',])
 # def registration_view(request):
