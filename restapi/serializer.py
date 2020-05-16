@@ -3,7 +3,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-
+from rest_framework.serializers import ModelSerializer, ReadOnlyField
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,9 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    product_id = serializers.CharField(source='product.url', read_only=True )
     category = serializers.SlugRelatedField(slug_field='name',queryset=Category.objects.all())
-    # user_id = serializers.CharField(source='user.id', read_only=True)
+    user_name = serializers.ReadOnlyField(source='user.username', read_only=True)
     condition = serializers.SlugRelatedField(slug_field='condition',queryset=Condition.objects.all())
     major = serializers.SlugRelatedField(slug_field='major',queryset=Major.objects.all())
     location = serializers.SlugRelatedField(slug_field='location',queryset=Location.objects.all())
@@ -40,8 +39,8 @@ class ProductSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Product
-        fields = '__all__'
-        #fields = ['product_id', 'category', 'major', 'condition', 'subject', 'location', 'price', 'description']
+        #fields = '__all__'
+        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'location', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created']
 
 
 class SubjectSerializer(serializers.ModelSerializer):

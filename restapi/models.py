@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 #     def __str__(self):
 #        return self.id_user
 
+
 class Category(models.Model):
     name = models.CharField(max_length = 200, null = True,)
     def __str__(self):
@@ -47,6 +48,7 @@ class Location(models.Model):
         ('Leuven','Leuven'),
         ('Gent','Gent'),
         ('Antwerpen','Antwerpen'),
+        ('Namen','Namen'),
     ]
     location = models.CharField(max_length=200,choices=LOCATION_CHOICES, null=True)
     def __str__(self):
@@ -73,7 +75,7 @@ class Product(models.Model):
     
     SCHOOL_CHOICES = (
         ('Erasmushogeschool | EHB',(
-            ('CampusKaai', 'CampusKaai'),
+            ('Campus Kaai', 'Campus Kaai'),
             ('Campus Bloemberg', 'Campus Bloemberg'),
         )),
         ('Vrije Universiteit Brussel | VUB',(

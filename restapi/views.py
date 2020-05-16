@@ -31,13 +31,6 @@ class ProductViewSet(viewsets.ModelViewSet):
     filterset_fields = ['category__name', 'major__major','subject__subject', 'school']
     pagination_class = ProductViewPagination
 
-    # def delete(self,request,*args,**kwargs):
-    #     response = {'message':'product cannot be updated like this'}
-    #     return Response(response, status = statu.HTTP_400_BAD_REQUEST)
-
-    # def create(self,request,*args,**kwargs):
-    #     response = {'message':'product cannot be created like this'}
-    #     return Response(response, status = status.HTTP_400_BAD_REQUEST)
     
 #**********************
 
