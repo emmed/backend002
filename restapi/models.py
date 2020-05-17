@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # class User(models.Model):
-#     id_user = models.DecimalField(max_digits=10, decimal_places=2, null=True)
+#     email =  models.CharField(max_length = 200, null = True,)
+#     name = models.CharField(max_length = 200, null = True,)
 #     def __str__(self):
-#        return self.id_user
+#        return self.name
 
 
 class Category(models.Model):
@@ -56,7 +58,6 @@ class Location(models.Model):
 
 class Product(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
-   # state = models.ForeignKey(State, null=True, on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
     subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
     major = models.ForeignKey(Major, null=True, on_delete=models.SET_NULL)
@@ -88,35 +89,6 @@ class Product(models.Model):
         )),
     )
     school = models.CharField(max_length=50, choices=SCHOOL_CHOICES, null=True)
-    
-    # MAJOR_CHOICES = (
-    #     ('IT','IT'),
-    #     ('Marketing','Marketing'),
-    #     ('DIFF','DIFF'),
-    # )
-    # major = models.CharField(max_length=200,choices=MAJOR_CHOICES, null=True)
-   
-    # SUBJECT_CHOICES = [
-    #     ('Mathematics','Mathematics'),
-    #     ('Algoritmes','Algoritmes'),
-    #     ('Analyses','Analyses'),
-    # ]
-    # subject = models.CharField(max_length=200,choices=SUBJECT_CHOICES, null=True)
-    
-    # CONDITION_CHOICES = [
-    #     ('New','New'),
-    #     ('Used','Used'),
-    # ]
-    # condition = models.CharField(max_length=200,choices=CONDITION_CHOICES, null=True)
-    
-    # LOCATION_CHOICES = [
-    #     ('Brussel','Brussel'),
-    #     ('Leuven','Leuven'),
-    #     ('Gent','Gent'),
-    #     ('Antwerpen','Antwerpen'),
-    # ]
-    # location = models.CharField(max_length=200,choices=LOCATION_CHOICES, null=True)
-    
 
     def __str__(self):
         return self.title
@@ -129,7 +101,7 @@ class ProductOrder(models.Model):
     ]
     buyer = models.ForeignKey(User,related_name="+", null=True,blank=True, on_delete=models.SET_NULL)
     seller = models.ForeignKey(User,related_name="+", null=True,blank=True, on_delete=models.SET_NULL)
-   # product moet hier de FK zijn anders zal de POST an ad functie fout geven
+   # product moet hier de FK zijn, anders zal de POST an ad functie fout geven
     product = models.ForeignKey(Product, null=True,blank=True, on_delete=models.SET_NULL)
     state = models.CharField(max_length = 200, null = True,
     choices = STATE_CHOICES)

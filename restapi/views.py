@@ -108,7 +108,7 @@ class UserViewSet(viewsets.ModelViewSet):
   authentication_classes = (TokenAuthentication,)
   permission_classes = (AllowAny,)
   filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-  search_fields = ['=id', '=username']
+  search_fields = ['=id', '=username', '=email']
 
 
 # @api_view(['POST',])
