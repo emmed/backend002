@@ -4,6 +4,7 @@ from .models import *
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import ModelSerializer, ReadOnlyField
+from cities_light.models import City
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,14 +18,19 @@ class UserSerializer(serializers.ModelSerializer):
       Token.objects.create(user=user)
       return user
 
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(slug_field='name',queryset=Category.objects.all())
     user_name = serializers.ReadOnlyField(source='user.username', read_only=True)
+   # city_name = serializers.ReadOnlyField(source='city.name', read_only=True)
     condition = serializers.SlugRelatedField(slug_field='condition',queryset=Condition.objects.all())
     major = serializers.SlugRelatedField(slug_field='major',queryset=Major.objects.all())
-    location = serializers.SlugRelatedField(slug_field='location',queryset=Location.objects.all())
     subject = serializers.SlugRelatedField(slug_field='subject',queryset=Subject.objects.all())
+    city = serializers.SlugRelatedField(slug_field='name',queryset=City.objects.all())
 
     # product_id = serializers.CharField(source='product.url', read_only=True)
     # #category = serializers.CharField(source='category.name', read_only=True)
@@ -40,7 +46,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         #fields = '__all__'
-        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'location', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created']
+        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created', 'city']
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -61,11 +67,6 @@ class ConditionSerializer(serializers.ModelSerializer):
 class MajorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Major
-        fields = '__all__'
-
-class LocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Location
         fields = '__all__'
 
 class FaqSerializer(serializers.ModelSerializer):

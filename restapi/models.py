@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
-# class User(models.Model):
-#     email =  models.CharField(max_length = 200, null = True,)
-#     name = models.CharField(max_length = 200, null = True,)
-#     def __str__(self):
-#        return self.name
+from cities_light.models import City
 
 
 class Category(models.Model):
@@ -44,17 +39,6 @@ class Condition(models.Model):
     def __str__(self):
         return self.condition
 
-class Location(models.Model):
-    LOCATION_CHOICES = [
-        ('Brussel','Brussel'),
-        ('Leuven','Leuven'),
-        ('Gent','Gent'),
-        ('Antwerpen','Antwerpen'),
-        ('Namen','Namen'),
-    ]
-    location = models.CharField(max_length=200,choices=LOCATION_CHOICES, null=True)
-    def __str__(self):
-        return self.location
 
 class Product(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
@@ -62,13 +46,12 @@ class Product(models.Model):
     subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
     major = models.ForeignKey(Major, null=True, on_delete=models.SET_NULL)
     condition = models.ForeignKey(Condition, null=True, on_delete=models.SET_NULL)
-    location = models.ForeignKey(Location, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=800, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=250, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-
+    city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     class Meta:
         unique_together = (('user','title'),)
         index_together = (('user','title'),) 

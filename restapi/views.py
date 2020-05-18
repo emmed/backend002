@@ -27,24 +27,9 @@ class ProductViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_calsses = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    search_fields = ['=title','=category__name','=major__major', '=subject__subject', "=condition__condition", '=location__location', 'school']
-    filterset_fields = ['category__name', 'major__major','subject__subject', 'school']
+    search_fields = ['=title','=category__name','=major__major', '=subject__subject', "=condition__condition" 'school']
+    filterset_fields = ['category__name', 'major__major','subject__subject', 'school','condition__condition']
     pagination_class = ProductViewPagination
-
-    
-#**********************
-
-    # @api_view(['PUT', ])
-    # def put(request):
-    #     if request.method == 'PUT':
-    #         product = Product.Objects.all()
-    #         serializer = ProductSerializer(product, data=request.data)
-    #         data = {}
-    #         if serializer.is_valid():
-    #             serializer.save()
-    #             data["success"] = "update successful"
-    #             return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ProductOrderViewSet(viewsets.ModelViewSet):
@@ -78,28 +63,18 @@ class MajorViewSet(viewsets.ModelViewSet):
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     search_fields = ('=major',)
 
-class LocationViewSet(viewsets.ModelViewSet):
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
-    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    search_fields = ('=location',)
 
 class FaqViewSet(viewsets.ModelViewSet):
     queryset = Faq.objects.all()
     serializer_class = FaqSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    search_fields = ('=location',)
-
-
-# class StateCountViewSet(viewsets.ModelViewSet):
-#     queryset = State.objects.all()
-#     serializer_class = StateSerializer
-#     permission_calsses = (IsAuthenticated,)
     
-#     def get(self, request, format=None):
-#         state_count = State.objects.count()
-#         content = {'state_count' : state_count}
-#         return Response(content)
+
+class CityViewSet(viewsets.ModelViewSet):
+    queryset = City.objects.all()
+    serializer_class = CitySerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    search_fields = ('=name',)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -109,18 +84,3 @@ class UserViewSet(viewsets.ModelViewSet):
   permission_classes = (AllowAny,)
   filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
   search_fields = ['=id', '=username', '=email']
-
-
-# @api_view(['POST',])
-# def registration_view(request):
-
-#     if request.method == 'POST':
-#         serializer = RegristrationSerializer(data=request.data)
-#         data = {}
-#         if serializer.is_valid():
-#             user = serialzer.save()
-#             data['response'] = "successfully registered a new userrrR"
-#             data['username'] = user.username
-#         else:
-#                 data = serializer.errors
-#                 return user

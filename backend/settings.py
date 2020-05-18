@@ -22,6 +22,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -33,8 +35,13 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'cities_light',
+    
 ]
 
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['nl']
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['BE']
+CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
