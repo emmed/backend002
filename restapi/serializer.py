@@ -4,7 +4,7 @@ from .models import *
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import ModelSerializer, ReadOnlyField
-from cities_light.models import City
+#from cities_light.models import City
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

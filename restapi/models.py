@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cities_light.models import City
-
+ 
 
 class Category(models.Model):
     name = models.CharField(max_length = 200, null = True,)
@@ -15,16 +15,55 @@ class Faq(models.Model):
        return self.question
 
 class Subject(models.Model):
-    SUBJECT_CHOICES=[('Mathematics','Mathematics'),('Algoritmes','Algoritmes'),('Analyses','Analyses'),('Informatica','Informatica'),]
+    SUBJECT_CHOICES=[
+        ('Wiskunde','Wiskunde'),
+        ('Algoritmes','Algoritmes'),
+        ('Analyses','Analyses'),
+        ('Informatica','Informatica'),
+        ('Fysica','Fysica'),
+        ('Wijsbegeerte','Wijsbegeerte'),
+        ('Geologie','Geologie'),
+        ('Psychologie','Psychologie'),
+        ('Godsdienst','Godsdienst'),
+        ('Frans','Frans'),
+        ('Engels','Engels'),
+        ('Duits','Duits'),
+        ('Biologie','Biologie'),
+        ('Toerisme','Toerisme'),
+        ('Economie','Economie'),
+        ('Toneel','Toneel'),
+        ('Audiovisuele vorming','Audiovisuele vorming'),
+]
     subject=models.CharField(max_length=200,null=True,choices=SUBJECT_CHOICES)
     def __str__(self):
         return self.subject
 
 class Major(models.Model):
     MAJOR_CHOICES = (
-        ('IT','IT'),
-        ('Marketing','Marketing'),
-        ('DIFF','DIFF'),
+        ('Handelsingenieur','Handelsingenieur'),
+        ('Industriële wetenschappen Energie','Industriële wetenschappen Energie'),
+        ('Biowetenschappen','Biowetenschappen'),
+        ('Architectuur','Architectuur'),
+        ('International Business','International Business'),
+        ('Fysica','Fysica'),
+        ('Wiskunde','Wiskunde'),
+        ('Wijsbegeerte','Wijsbegeerte'),
+        ('Kunstwetenschappen','Kunstwetenschappen'),
+        ('Taal- en letterkunde','Taal- en letterkunde'),
+        ('Geologie','Geologie'),
+        ('Informatica','Informatica'),
+        ('Rechten','Rechten'),
+        ('Geschiedenis','Geschiedenis'),
+        ('Beeldende kunsten','Beeldende kunsten'),
+        ('Visual Arts','Visual Arts'),
+        ('Drama','Drama'),
+        ('Muziek','Muziek'),
+        ('Chemie','Chemie'),
+        ('Biomedische laboratoriumtechnologie','Biomedische laboratoriumtechnologie'),
+        ('Bedrijfsmanagement','Bedrijfsmanagement'),
+        ('Journalistiek','Journalistiek'),
+        ('Office management','Office management'),
+        ('Transport en logistiek','Transport en logistiek'),
     )
     major = models.CharField(max_length=200,choices=MAJOR_CHOICES, null=True)
     def __str__(self):
@@ -92,3 +131,21 @@ class ProductOrder(models.Model):
     def __str__(self):
        return self.state
 
+        # ('Odisee','Odisee'),
+        # ('LUCA School of Arts','LUCA School of Arts'),
+        # ('Erasmushogeschool Brussel','Erasmushogeschool Brussel'),
+        # ('Artesis Plantijn Hogeschool','Artesis Plantijn Hogeschool'),
+        # ('Karel de Grote-Hogeschool','Karel de Grote-Hogeschool'),
+        # ('Thomas More','Thomas More'),
+        # ('UC Leuven','UC Leuven'),
+        # ('Hogeschool PXL','Hogeschool PXL'),
+        # ('UC Limburg','UC Limburg'),
+        # ('Hogeschool West-Vlaanderen','Hogeschool West-Vlaanderen'),
+        # ('Katholieke Hogeschool Vives','Katholieke Hogeschool Vives'),
+        # ('Hogeschool Gent Geraard','Hogeschool Gent	Geraard'),
+        # ('Arteveldehogeschool','Arteveldehogeschool'),
+        # ('Vrije Universiteit Brussel','Vrije Universiteit Brussel'),
+        # ('Universiteit Antwerpen','Universiteit Antwerpen'),
+        # ('Katholieke Universiteit Leuven','Katholieke Universiteit Leuven'),
+        # ('Universiteit Hasselt','Universiteit Hasselt'),
+        # ('Universiteit Gent','Universiteit Gent')

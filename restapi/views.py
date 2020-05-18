@@ -27,8 +27,8 @@ class ProductViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_calsses = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    search_fields = ['=title','=category__name','=major__major', '=subject__subject', "=condition__condition" 'school']
-    filterset_fields = ['category__name', 'major__major','subject__subject', 'school','condition__condition']
+    search_fields = ['=title','=category__name','=major__major', '=subject__subject', "=condition__condition" 'school', '=city__name']
+    filterset_fields = ['category__name', 'major__major','subject__subject', 'school','condition__condition', 'city__name']
     pagination_class = ProductViewPagination
 
 
