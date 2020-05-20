@@ -48,7 +48,9 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DATE_INPUT_FORMATS':['iso-8601', '%Y-%m-%dT%H:%M:%S.%fZ'],
 }
+
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',

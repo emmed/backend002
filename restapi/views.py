@@ -28,7 +28,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     permission_calsses = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     search_fields = ['=title','=category__name','=major__major', '=subject__subject', "=condition__condition" 'school', '=city__name']
-    filterset_fields = ['category__name', 'major__major','subject__subject', 'school','condition__condition', 'city__name']
+    filterset_fields = ['id','user','category__name', 'major__major','subject__subject', 'school__school','condition__condition', 'city__name']
     pagination_class = ProductViewPagination
 
 
@@ -36,7 +36,8 @@ class ProductOrderViewSet(viewsets.ModelViewSet):
     queryset = ProductOrder.objects.all()
     serializer_class = ProductOrderSerializer
     permission_calsses = (IsAuthenticated,)
-
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ['buyer']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -68,7 +69,12 @@ class FaqViewSet(viewsets.ModelViewSet):
     queryset = Faq.objects.all()
     serializer_class = FaqSerializer
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
-    
+
+
+class SchoolViewSet(viewsets.ModelViewSet):
+    queryset = School.objects.all()
+    serializer_class = SchoolSerializer
+      
 
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()

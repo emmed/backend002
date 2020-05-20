@@ -31,6 +31,7 @@ class ProductSerializer(serializers.ModelSerializer):
     major = serializers.SlugRelatedField(slug_field='major',queryset=Major.objects.all())
     subject = serializers.SlugRelatedField(slug_field='subject',queryset=Subject.objects.all())
     city = serializers.SlugRelatedField(slug_field='name',queryset=City.objects.all())
+    school = serializers.SlugRelatedField(slug_field='school',queryset=School.objects.all())
 
     # product_id = serializers.CharField(source='product.url', read_only=True)
     # #category = serializers.CharField(source='category.name', read_only=True)
@@ -62,6 +63,11 @@ class CategorySerializer(serializers.ModelSerializer):
 class ConditionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Condition
+        fields = '__all__'
+
+class SchoolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = School
         fields = '__all__'
 
 class MajorSerializer(serializers.ModelSerializer):

@@ -19,6 +19,7 @@ router.register('faq', FaqViewSet)
 router.register('subject', SubjectViewSet)
 router.register('major', MajorViewSet)
 router.register('condition', ConditionViewSet)
+router.register('school', SchoolViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

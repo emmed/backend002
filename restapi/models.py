@@ -78,6 +78,31 @@ class Condition(models.Model):
     def __str__(self):
         return self.condition
 
+class School(models.Model):
+    SCHOOL_CHOICES = (
+        ('Odisee','Odisee'),
+        ('LUCA School of Arts','LUCA School of Arts'),
+        ('Erasmushogeschool Brussel','Erasmushogeschool Brussel'),
+        ('Artesis Plantijn Hogeschool','Artesis Plantijn Hogeschool'),
+        ('Karel de Grote-Hogeschool','Karel de Grote-Hogeschool'),
+        ('Thomas More','Thomas More'),
+        ('UC Leuven','UC Leuven'),
+        ('Hogeschool PXL','Hogeschool PXL'),
+        ('UC Limburg','UC Limburg'),
+        ('Hogeschool West-Vlaanderen','Hogeschool West-Vlaanderen'),
+        ('Katholieke Hogeschool Vives','Katholieke Hogeschool Vives'),
+        ('Hogeschool Gent Geraard','Hogeschool Gent	Geraard'),
+        ('Arteveldehogeschool','Arteveldehogeschool'),
+        ('Vrije Universiteit Brussel','Vrije Universiteit Brussel'),
+        ('Universiteit Antwerpen','Universiteit Antwerpen'),
+        ('Katholieke Universiteit Leuven','Katholieke Universiteit Leuven'),
+        ('Universiteit Hasselt','Universiteit Hasselt'),
+        ('Universiteit Gent','Universiteit Gent'),
+    )
+    school = models.CharField(max_length=200,choices=SCHOOL_CHOICES, null=True)
+    def __str__(self):
+        return self.school
+
 
 class Product(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
@@ -85,6 +110,7 @@ class Product(models.Model):
     subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
     major = models.ForeignKey(Major, null=True, on_delete=models.SET_NULL)
     condition = models.ForeignKey(Condition, null=True, on_delete=models.SET_NULL)
+    school = models.ForeignKey(School, null=True, on_delete=models.SET_NULL)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=800, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
@@ -96,56 +122,32 @@ class Product(models.Model):
         index_together = (('user','title'),) 
     
     
-    SCHOOL_CHOICES = (
-        ('Erasmushogeschool | EHB',(
-            ('Campus Kaai', 'Campus Kaai'),
-            ('Campus Bloemberg', 'Campus Bloemberg'),
-        )),
-        ('Vrije Universiteit Brussel | VUB',(
-            ('Campus Jette', 'Campus Jette'),
-            ('Campus Schaarbeek', 'Campus Schaarbeek'),
-        )),
-        ('Katholieke universiteit leuven | KUL',(
-            ('KUL Gent', 'KUL Gent'),
-            ('Campus Antwerpen', 'Campus Antwerpen'),
-        )),
-    )
-    school = models.CharField(max_length=50, choices=SCHOOL_CHOICES, null=True)
+    # SCHOOL_CHOICES = (
+    #     ('Erasmushogeschool | EHB',(
+    #         ('Campus Kaai', 'Campus Kaai'),
+    #         ('Campus Bloemberg', 'Campus Bloemberg'),
+    #     )),
+    #     ('Vrije Universiteit Brussel | VUB',(
+    #         ('Campus Jette', 'Campus Jette'),
+    #         ('Campus Schaarbeek', 'Campus Schaarbeek'),
+    #     )),
+    #     ('Katholieke universiteit leuven | KUL',(
+    #         ('KUL Gent', 'KUL Gent'),
+    #         ('Campus Antwerpen', 'Campus Antwerpen'),
+    #     )),
+    # )
+    # school = models.CharField(max_length=50, choices=SCHOOL_CHOICES, null=True)
 
     def __str__(self):
         return self.title
 
   
 class ProductOrder(models.Model):
-
-    STATE_CHOICES = [('Ordered', 'Ordered'), ('Pending', 'Pending'),
-        ('Placed', 'Placed')
-    ]
     buyer = models.ForeignKey(User,related_name="+", null=True,blank=True, on_delete=models.SET_NULL)
     seller = models.ForeignKey(User,related_name="+", null=True,blank=True, on_delete=models.SET_NULL)
-   # product moet hier de FK zijn, anders zal de POST an ad functie fout geven
     product = models.ForeignKey(Product, null=True,blank=True, on_delete=models.SET_NULL)
-    state = models.CharField(max_length = 200, null = True,
-    choices = STATE_CHOICES)
 
     def __str__(self):
-       return self.state
+        return str(self.product)
 
-        # ('Odisee','Odisee'),
-        # ('LUCA School of Arts','LUCA School of Arts'),
-        # ('Erasmushogeschool Brussel','Erasmushogeschool Brussel'),
-        # ('Artesis Plantijn Hogeschool','Artesis Plantijn Hogeschool'),
-        # ('Karel de Grote-Hogeschool','Karel de Grote-Hogeschool'),
-        # ('Thomas More','Thomas More'),
-        # ('UC Leuven','UC Leuven'),
-        # ('Hogeschool PXL','Hogeschool PXL'),
-        # ('UC Limburg','UC Limburg'),
-        # ('Hogeschool West-Vlaanderen','Hogeschool West-Vlaanderen'),
-        # ('Katholieke Hogeschool Vives','Katholieke Hogeschool Vives'),
-        # ('Hogeschool Gent Geraard','Hogeschool Gent	Geraard'),
-        # ('Arteveldehogeschool','Arteveldehogeschool'),
-        # ('Vrije Universiteit Brussel','Vrije Universiteit Brussel'),
-        # ('Universiteit Antwerpen','Universiteit Antwerpen'),
-        # ('Katholieke Universiteit Leuven','Katholieke Universiteit Leuven'),
-        # ('Universiteit Hasselt','Universiteit Hasselt'),
-        # ('Universiteit Gent','Universiteit Gent')
+       
