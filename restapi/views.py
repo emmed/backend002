@@ -1,19 +1,37 @@
 from django.shortcuts import render
-from  rest_framework import viewsets, status
+from django_filters.rest_framework import DjangoFilterBackend
+from django_filters import rest_framework as filters
+from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from .models import *
-from django.contrib.auth.models import User
 from .serializer import *
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.authentication import TokenAuthentication
-from django_filters.rest_framework import DjangoFilterBackend
-from django_filters import rest_framework as filters
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.pagination import LimitOffsetPagination
 
+# from django.shortcuts import render
+# from backend.settings import EMAIL_HOST_USER
+# from .forms import restapi
+# from django.core.mail import send_mail
+# # Create your views here.
+# #DataFlair #Send Email
+# def subscribe(request):
+#     sub = forms.Subscribe()
+#     if request.method == 'POST':
+#         sub = forms.Subscribe(request.POST)
+#         subject = 'Welcome to DataFlair'
+#         message = 'Hope you are enjoying your Django Tutorials'
+#         recepient = str(sub['Email'].value())
+#         send_mail(subject, 
+#             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+#         return render(request, 'subscribe/success.html', {'recepient': recepient})
+#     return render(request, 'subscribe/index.html', {'form':sub})
 
 class ProductViewPagination(LimitOffsetPagination):
     default_limit = 8
@@ -37,7 +55,7 @@ class ProductOrderViewSet(viewsets.ModelViewSet):
     serializer_class = ProductOrderSerializer
     permission_calsses = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['buyer']
+    filterset_fields = ['buyer','seller']
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()

@@ -48,7 +48,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DATE_INPUT_FORMATS':['iso-8601', '%Y-%m-%dT%H:%M:%S.%fZ'],
+   
 }
 
 
@@ -137,3 +137,11 @@ STATIC_ROOT = 'static'
 
 MEDIA_URL ="/media/"
 MEDIA_ROOT = 'media'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'hallozello@gmail.com'
+EMAIL_HOST_PASSWORD = 'knnfdpfcfkcijvud'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Edushop <noreply@Edushop.com>'

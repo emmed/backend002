@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
 from django.urls import path
+from rest_framework import routers, serializers, viewsets
 from restapi.views import *
 from cities_light.models import City
 

@@ -1,7 +1,7 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 from .models import *
-from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import ModelSerializer, ReadOnlyField
 #from cities_light.models import City
@@ -28,11 +28,11 @@ class ProductSerializer(serializers.ModelSerializer):
     user_name = serializers.ReadOnlyField(source='user.username', read_only=True)
    # city_name = serializers.ReadOnlyField(source='city.name', read_only=True)
     condition = serializers.SlugRelatedField(slug_field='condition',queryset=Condition.objects.all())
-    major = serializers.SlugRelatedField(slug_field='major',queryset=Major.objects.all())
-    subject = serializers.SlugRelatedField(slug_field='subject',queryset=Subject.objects.all())
+    major = serializers.SlugRelatedField(slug_field='major',queryset=Major.objects.all(), allow_null=True)
+    subject = serializers.SlugRelatedField(slug_field='subject',queryset=Subject.objects.all(),allow_null=True)
     city = serializers.SlugRelatedField(slug_field='name',queryset=City.objects.all())
-    school = serializers.SlugRelatedField(slug_field='school',queryset=School.objects.all())
-
+    school = serializers.SlugRelatedField(slug_field='school',queryset=School.objects.all(),allow_null=True)
+    date_created = serializers.DateTimeField(format="%d-%m-%Y", required=False, read_only=True)
     # product_id = serializers.CharField(source='product.url', read_only=True)
     # #category = serializers.CharField(source='category.name', read_only=True)
     # category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())

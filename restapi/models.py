@@ -107,10 +107,10 @@ class School(models.Model):
 class Product(models.Model):
     user = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
-    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
-    major = models.ForeignKey(Major, null=True, on_delete=models.SET_NULL)
+    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL, blank=True)
+    major = models.ForeignKey(Major, null=True, on_delete=models.SET_NULL, blank=True)
     condition = models.ForeignKey(Condition, null=True, on_delete=models.SET_NULL)
-    school = models.ForeignKey(School, null=True, on_delete=models.SET_NULL)
+    school = models.ForeignKey(School, null=True, on_delete=models.SET_NULL, blank=True)
     title = models.CharField(max_length=200)
     description = models.TextField(max_length=800, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
