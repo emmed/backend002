@@ -36,7 +36,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'cities_light',
-    
 ]
 
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['nl']
@@ -48,6 +47,8 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'PAGE_SIZE': 8,
    
 }
 

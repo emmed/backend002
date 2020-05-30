@@ -5,6 +5,9 @@ from cities_light.models import City
 
 class Category(models.Model):
     name = models.CharField(max_length = 200, null = True,)
+    description = models.TextField(max_length=800, null=True)
+    image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=250, null=True)
+
     def __str__(self):
        return self.name
 
@@ -16,6 +19,7 @@ class Faq(models.Model):
 
 class Subject(models.Model):
     SUBJECT_CHOICES=[
+        ('No subject','No subject'),
         ('Wiskunde','Wiskunde'),
         ('Algoritmes','Algoritmes'),
         ('Analyses','Analyses'),
@@ -40,6 +44,7 @@ class Subject(models.Model):
 
 class Major(models.Model):
     MAJOR_CHOICES = (
+        ('No major','No major'),
         ('Handelsingenieur','Handelsingenieur'),
         ('Industriële wetenschappen Energie','Industriële wetenschappen Energie'),
         ('Biowetenschappen','Biowetenschappen'),
@@ -80,6 +85,7 @@ class Condition(models.Model):
 
 class School(models.Model):
     SCHOOL_CHOICES = (
+        ('No school','No school'),
         ('Odisee','Odisee'),
         ('LUCA School of Arts','LUCA School of Arts'),
         ('Erasmushogeschool Brussel','Erasmushogeschool Brussel'),
@@ -116,27 +122,12 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=250, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+    expiration_date = models.DateTimeField(null=True)
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     class Meta:
         unique_together = (('user','title'),)
         index_together = (('user','title'),) 
-    
-    
-    # SCHOOL_CHOICES = (
-    #     ('Erasmushogeschool | EHB',(
-    #         ('Campus Kaai', 'Campus Kaai'),
-    #         ('Campus Bloemberg', 'Campus Bloemberg'),
-    #     )),
-    #     ('Vrije Universiteit Brussel | VUB',(
-    #         ('Campus Jette', 'Campus Jette'),
-    #         ('Campus Schaarbeek', 'Campus Schaarbeek'),
-    #     )),
-    #     ('Katholieke universiteit leuven | KUL',(
-    #         ('KUL Gent', 'KUL Gent'),
-    #         ('Campus Antwerpen', 'Campus Antwerpen'),
-    #     )),
-    # )
-    # school = models.CharField(max_length=50, choices=SCHOOL_CHOICES, null=True)
+
 
     def __str__(self):
         return self.title

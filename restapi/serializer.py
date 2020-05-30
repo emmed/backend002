@@ -1,10 +1,9 @@
+from .models import *
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
-from .models import *
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import ModelSerializer, ReadOnlyField
-#from cities_light.models import City
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,6 +24,8 @@ class CitySerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(slug_field='name',queryset=Category.objects.all())
+    # category_description = serializers.ReadOnlyField(source='category.description', read_only=True)
+    # category_image = serializers.ReadOnlyField(source='category.image', read_only=True)
     user_name = serializers.ReadOnlyField(source='user.username', read_only=True)
    # city_name = serializers.ReadOnlyField(source='city.name', read_only=True)
     condition = serializers.SlugRelatedField(slug_field='condition',queryset=Condition.objects.all())
@@ -33,6 +34,7 @@ class ProductSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field='name',queryset=City.objects.all())
     school = serializers.SlugRelatedField(slug_field='school',queryset=School.objects.all(),allow_null=True)
     date_created = serializers.DateTimeField(format="%d-%m-%Y", required=False, read_only=True)
+    expiration_date = serializers.DateTimeField(format="%d-%m-%Y", required=False, read_only=True)
     # product_id = serializers.CharField(source='product.url', read_only=True)
     # #category = serializers.CharField(source='category.name', read_only=True)
     # category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
@@ -47,7 +49,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         #fields = '__all__'
-        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created', 'city']
+        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created', 'expiration_date', 'city']
 
 
 class SubjectSerializer(serializers.ModelSerializer):

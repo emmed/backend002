@@ -1,3 +1,5 @@
+from .models import *
+from .serializer import *
 from django.shortcuts import render
 from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
@@ -5,38 +7,18 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
-from .models import *
-from .serializer import *
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
-from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination
+ 
 
-# from django.shortcuts import render
-# from backend.settings import EMAIL_HOST_USER
-# from .forms import restapi
-# from django.core.mail import send_mail
-# # Create your views here.
-# #DataFlair #Send Email
-# def subscribe(request):
-#     sub = forms.Subscribe()
-#     if request.method == 'POST':
-#         sub = forms.Subscribe(request.POST)
-#         subject = 'Welcome to DataFlair'
-#         message = 'Hope you are enjoying your Django Tutorials'
-#         recepient = str(sub['Email'].value())
-#         send_mail(subject, 
-#             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
-#         return render(request, 'subscribe/success.html', {'recepient': recepient})
-#     return render(request, 'subscribe/index.html', {'form':sub})
 
-class ProductViewPagination(LimitOffsetPagination):
-    default_limit = 8
-    max_limit = 12
-
+class myPag(PageNumberPagination):
+     page_size = 8
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -45,11 +27,13 @@ class ProductViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_calsses = (IsAuthenticated,)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    search_fields = ['=title','=category__name','=major__major', '=subject__subject', "=condition__condition" 'school', '=city__name']
-    filterset_fields = ['id','user','category__name', 'major__major','subject__subject', 'school__school','condition__condition', 'city__name']
-    pagination_class = ProductViewPagination
+    search_fields = ['title']
+    # search_fields = ['title','=category__name','=major__major', '=subject__subject', "=condition__condition" 'school', '=city__name']
+    filterset_fields = ['id','user','category__name', 'major__major','subject__subject', 'school__school','condition__condition', 'city__name','title']
+    pagination_class = myPag
 
-
+ 
+ 
 class ProductOrderViewSet(viewsets.ModelViewSet):
     queryset = ProductOrder.objects.all()
     serializer_class = ProductOrderSerializer
@@ -63,6 +47,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     permission_calsses = (IsAuthenticated,)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
     search_fields = ('=name', 'id')
+    filterset_fields = ['id', 'name']
 
 class SubjectViewSet(viewsets.ModelViewSet):
     queryset = Subject.objects.all()
@@ -108,3 +93,22 @@ class UserViewSet(viewsets.ModelViewSet):
   permission_classes = (AllowAny,)
   filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
   search_fields = ['=id', '=username', '=email']
+
+# from django.shortcuts import render
+# from backend.settings import EMAIL_HOST_USER
+# from .forms import restapi
+# from django.core.mail import send_mail
+# # Create your views here.
+# #DataFlair #Send Email
+# def subscribe(request):
+#     sub = forms.Subscribe()
+#     if request.method == 'POST':
+#         sub = forms.Subscribe(request.POST)
+#         subject = 'Welcome to DataFlair'
+#         message = 'Hope you are enjoying your Django Tutorials'
+#         recepient = str(sub['Email'].value())
+#         send_mail(subject, 
+#             message, EMAIL_HOST_USER, [recepient], fail_silently = False)
+#         return render(request, 'subscribe/success.html', {'recepient': recepient})
+#     return render(request, 'subscribe/index.html', {'form':sub})
+ 
