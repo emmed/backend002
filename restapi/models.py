@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 from cities_light.models import City
  
+class ContactUser(models.Model):
+    name = models.CharField(max_length = 200, null = True,)
+    email = models.CharField(max_length=50, null=True)
+    user_email = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
 
 class Category(models.Model):
     name = models.CharField(max_length = 200, null = True,)

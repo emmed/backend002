@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework as filters
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
 from rest_framework import viewsets, status
 from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated,AllowAny
@@ -14,8 +15,41 @@ from rest_framework.response import Response
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.pagination import PageNumberPagination
+
+def send_email():
+    email = EmailMessage(
+        'hello+++',
+        (ContactUserSerializer.name, ContactUserSerializer.email_user, ContactUserSerializer.email),
+        'rob@hotmail.com',
+        ['hallozello@gmail.com']
+    )
+    email.attach_file(ContactUserSerializer.file)
+    email.send()
+
+
+class ContactUserViewSet(viewsets.ModelViewSet):
+    queryset = ContactUser.objects.all()
+    serializer_class = ContactUserSerializer
+
+    def create(self, request, *args, **kwargs):
+        response = super(ContactUserViewSet, self).create(request, *args, **kwargs)
+        send_email()  # sending mail
+        return response
+
  
 
+# def contact(request):
+#     if request.method  == 'POST':
+#         message_subject = request.POST['message-subject']
+#         message_email = request.POST['message-email']
+#         message_description = request.POST['message-description']
+
+#         send_mail(
+#            message_subject , #subject
+#             message_description, #message
+#            message_email ,# from email
+#            ['hallozello@gmail.com']  ,#to email
+#         )
 
 class myPag(PageNumberPagination):
      page_size = 8

@@ -5,6 +5,13 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.serializers import ModelSerializer, ReadOnlyField
 
+class ContactUserSerializer(serializers.ModelSerializer):
+    #user_name=serializers.ReadOnlyField(source='user.email',read_only=True)
+    class Meta:
+        model = ContactUser
+        fields = '__all__'
+
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

@@ -20,6 +20,7 @@ router.register('subject', SubjectViewSet)
 router.register('major', MajorViewSet)
 router.register('condition', ConditionViewSet)
 router.register('school', SchoolViewSet)
+router.register('contactUser', ContactUserViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
