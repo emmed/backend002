@@ -80,6 +80,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     permission_calsses = (IsAuthenticated,)
     filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter)
+    # = means search exact the name of the category
     search_fields = ('=name', 'id')
     filterset_fields = ['id', 'name']
 

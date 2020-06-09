@@ -1,14 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 from cities_light.models import City
- 
+
+# my Models
+
 class ContactUser(models.Model):
-    name = models.CharField(max_length = 200, null = True,)
+    name = models.CharField(max_length = 200, null = True)
     email = models.CharField(max_length=50, null=True)
     user_email = models.ForeignKey(User,null=True, on_delete=models.SET_NULL)
 
 class Category(models.Model):
-    name = models.CharField(max_length = 200, null = True,)
+    name = models.CharField(max_length = 200, null = True)
     description = models.TextField(max_length=800, null=True)
     image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=250, null=True)
 
@@ -126,7 +128,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True)
     image = models.ImageField(upload_to='post_image', blank=True, width_field=None, height_field=None, max_length=250, null=True)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
-    expiration_date = models.DateTimeField(null=True)
+    #expiration_date = models.DateTimeField(null=True)
     city = models.ForeignKey(City, null=True, on_delete=models.SET_NULL)
     class Meta:
         unique_together = (('user','title'),)

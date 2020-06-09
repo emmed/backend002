@@ -22,22 +22,22 @@ CORS_ORIGIN_ALLOW_ALL = True
 # Application definition
 
 INSTALLED_APPS = [
-    'dal',
-    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # adding my app in the root setting.py
     'restapi',
+    # all the required modules/apps for the backend
     'rest_framework.authtoken',
     'rest_framework',
     'corsheaders',
     'django_filters',
     'cities_light',
 ]
-
+# setting up the cities light library with the chosen country of choice
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['nl']
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['BE']
 CITIES_LIGHT_INCLUDE_CITY_TYPES = ['PPL', 'PPLA', 'PPLA2', 'PPLA3', 'PPLA4', 'PPLC', 'PPLF', 'PPLG', 'PPLL', 'PPLR', 'PPLS', 'STLMT',]
@@ -46,6 +46,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
+    # register the filter backends 
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     # 'PAGE_SIZE': 8,
@@ -54,6 +55,7 @@ REST_FRAMEWORK = {
 
 
 MIDDLEWARE = [
+    # adding the line below to register corsheaders 
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -133,12 +135,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+# setting up the locations where all the static & media files can be stored
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
 MEDIA_URL ="/media/"
 MEDIA_ROOT = 'media'
 
+
+# setting up a default email for periodic outgoing mails
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'hallozello@gmail.com'

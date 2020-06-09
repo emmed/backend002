@@ -16,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'password', 'email')
+        # key word arguments: this cobinations must be repected, that is way i set it as required
         extra_kwargs = {'password':{'write_only':True,'required':True}}
         
     def create(self, validated_data):
@@ -41,7 +42,7 @@ class ProductSerializer(serializers.ModelSerializer):
     city = serializers.SlugRelatedField(slug_field='name',queryset=City.objects.all())
     school = serializers.SlugRelatedField(slug_field='school',queryset=School.objects.all(),allow_null=True)
     date_created = serializers.DateTimeField(format="%d-%m-%Y", required=False, read_only=True)
-    expiration_date = serializers.DateTimeField(format="%d-%m-%Y", required=False, read_only=True)
+  #  expiration_date = serializers.DateTimeField(format="%d-%m-%Y", required=False, read_only=True)
     # product_id = serializers.CharField(source='product.url', read_only=True)
     # #category = serializers.CharField(source='category.name', read_only=True)
     # category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
@@ -56,7 +57,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         #fields = '__all__'
-        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created', 'expiration_date', 'city']
+        fields = ['id', 'title','category', 'major', 'condition', 'subject', 'school', 'price', 'description', 'image', 'user', 'user_name', 'date_created',  'city']
 
 
 class SubjectSerializer(serializers.ModelSerializer):

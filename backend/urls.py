@@ -10,7 +10,7 @@ from django.conf import settings
 from django.views.static import serve
 
 # check this https://www.youtube.com/watch?v=QvTyqta3OJo&list=PL-51WBLyFTg2vW-_6XBoUpE7vpmoR3ztO&index=2
-# this urls are  redirected to hithe urls.py of the restapi app
+# this urls are  redirected to the urls.py of the restapi app
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('restapi.urls')),

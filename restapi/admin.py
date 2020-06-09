@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-
+# all the registerations of the entities for the django administrations
 admin.site.register(Product)
 admin.site.register(Category)
 admin.site.register(Subject)
